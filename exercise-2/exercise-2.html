@@ -16,6 +16,7 @@
         </div>
         <!-- 2) Listen to the "keydown" event and store the value in a data property (hint: event.target.value gives you the value) -->
         <div>
+           <!-- note that unlike normal html, in vue you need not mention the function with () to call it from html -->
             <input @keydown="keyDownEventOccured" type="text">
             <p>{{ value }}</p>
         </div>
