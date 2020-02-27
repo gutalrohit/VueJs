@@ -36,6 +36,12 @@
 }
 .red {
   background-color: red;
+  height: 50px;
+  width: 50px;
+}
+
+.rounded {
+  border-radius: 50%;
 }
 
 .greenish {
