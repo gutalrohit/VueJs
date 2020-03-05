@@ -7,11 +7,21 @@
     margin: 1rem;
 }
 .quote.quote-tile {
-    width: 30%;
+    width: 100%;
     border: rgb(47, 172, 255) solid 2px;
     border-radius: 10px;
+    padding: 5px
+}
+.quote.quote-tile:hover {
+    cursor: pointer;
 }
 .quote.quote-grid {
     display: flex;
     flex-wrap: wrap;
+}
+
+@media screen and (min-width : 768px) {
+    .quote.quote-tile {
+        width: 35%;
+    }
 }

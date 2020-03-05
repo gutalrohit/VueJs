@@ -1,7 +1,8 @@
 <template>
   <div id="app" class="p-4">
     <quote-add @quoteAddButtonClick="addQuotesToList" :allQuotes="allQuotes"></quote-add>
-    <quote-show :allQuotes="allQuotes"></quote-show>
+    <quote-show :allQuotes="allQuotes" @deleteQuoteActions="deleteQuote"></quote-show>
+    <p v-show="allQuotes.length > 0" class="mt-5">  Click on the quote tile to delete a quote</p>
   </div>
 </template>
 
@@ -23,6 +24,9 @@ export default {
   methods: {
     addQuotesToList(event) {
       this.allQuotes.push(event);
+    },
+    deleteQuote(indexTobeDeleteted) {
+      this.allQuotes.splice(indexTobeDeleteted, 1);
     }
   }
 }
