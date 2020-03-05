@@ -1,0 +1,17 @@
+.quote-add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.quote > * {
+    margin: 1rem;
+}
+.quote.quote-tile {
+    width: 30%;
+    border: rgb(47, 172, 255) solid 2px;
+    border-radius: 10px;
+}
+.quote.quote-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
