@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <article id="app1">
+        <h1 ref='titleDisplay'>Welcome to {{instanceName }}</h1>
+    </article>
+    <article id="app2">
+        <h1 ref='titleDisplay'>Welcome to {{instanceName }}</h1>
+        <button type="button" @click="lifeCycle">Call Update LC</button>
+        <button type="button" @click="destroylifeCycle">Call Destroy LC</button>
+    </article>
+</body>
+<script>
+
+//Template replaces content of the selected Vue app
+
+let instance1 =  new Vue({
+    template: '<p>Hello World</p>',
+    data: {
+        instanceName: 'Vue Instance 1dffss'
+    }
+});
+//using $mount to mount the app after instancisiation. 
+//Attaching Template after DOM creation
+instance1.$mount('#app1')
+
+//adding  property to the instance from outside
+instance1.NewProperty = 'Rohit';
+console.log(instance1);
+
+//accesssing $el and $data
+console.log(instance1.$el);
+console.log(instance1.$data.instanceName);
+
+
+
+let instance2 = new Vue({
+    el: '#app2',
+    data: {
+        instanceName: 'Vue Instance 2',
+        neighbourInstance: instance1.instanceName
+    },
+    methods: {
+        lifeCycle() {
+            this.instanceName = 'Rohit Updated';
+            //this.$destroy();
+        },
+        destroylifeCycle() {
+            //this.instanceName = 'Rohit Updated';
+            this.$destroy();
+        }
+    },
+    beforeCreate() {
+        console.log('beforeCreated');
+    },
+    created() {
+        console.log('Created');
+        console.log(this.$el);
+        console.log(this.$data);
+    },
+    beforeMount() {
+        console.log('beforeMounted');
+        console.log(this.$el);
+    },
+    mounted() {
+        console.log('mounted');
+        console.log(this.$el);
+    },
+    beforeUpdate() {
+        console.log('beforeUpdate');
+    },
+    updated() {
+        console.log('updated');
+    },
+    beforeDestroy() {
+        console.log('beforeDestroy');
+    },
+    destroyed() {
+        console.log('destroyed');
+    }
+})
+console.log(instance2.neighbourInstance)
+//accessing DOM using $refs
+//instance2.$refs.titleDisplay.innerText = 'Lalalalaa';
+</script>
+</html>

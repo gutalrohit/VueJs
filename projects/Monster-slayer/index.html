@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">{{name}}</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" 
+                style="background-color: green; margin: 0; color: white;"
+                :style="{width: userHealthWidth + '%'}">{{userHealthWidth}}%
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" 
+                style="background-color: green; margin: 0; color: white;"
+                :style="{width: monsterHealthWidth + '%' }">
+                    {{monsterHealthWidth}}%
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game" @click="gameStarted = true" v-if="!gameStarted">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-show="gameStarted">
+        <div class="small-12 columns">
+            <button id="attack" @click="normalAttack">ATTACK</button>
+            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" @click="restartGame">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns">{{winner}}
+            <ul>
+                <li v-for="log in logs" 
+                :style="{'background-color': log.user == 'player'? 'green': 'red'}">{{log.data}}</li>
+            </ul>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+
+<script>
+
+new Vue({
+    el: '#app',
+    data: {
+        name: ' Rohit',
+        gameStarted: false,
+        userHealthWidth: 100,
+        monsterHealthWidth: 100,
+        logs: [],
+        winnerMsg: 'No winner yet'
+    },
+    methods: {
+        attack(randomNumber, userImpactValue) {
+            const userImpact = randomNumber > userImpactValue ? randomNumber - userImpactValue : 0;
+            this.userHealthWidth = this.userHealthWidth - userImpact;
+            this.monsterHealthWidth = this.monsterHealthWidth - randomNumber;
+            const attackLogUser = `Player hits monster for ${randomNumber}`;
+            const attackLogMonster = `Monster hits player for ${userImpact}`;
+            this.logs.push({'user': 'player', 'data': attackLogUser});
+            this.logs.push({'user': 'monster', 'data': attackLogMonster});
+        },
+        normalAttack() {
+            randomNumber = this.rndomNumberGenerator();
+            this.attack(randomNumber, 2);
+        },
+        rndomNumberGenerator() {
+            return randomNumber = Math.floor((Math.random() * 10));
+        },
+        specialAttack() {
+          let specialAttackNumber =   this.rndomNumberGenerator() + 5;
+          this.attack(specialAttackNumber, 5);
+        },
+        heal() {
+            this.userHealthWidth = this.userHealthWidth < 100 ? this.userHealthWidth + 5 : 100;
+        },
+        restartGame() {
+            this.gameStarted = false;
+            this.userHealthWidth = 100;
+            this.monsterHealthWidth = 100;
+            this.logs = [];
+        }
+    },
+    computed: {
+        winner() {
+            if(this.userHealthWidth > 100) {
+               setTimeout(() => {
+                   return `${this.name} is the winner`;
+               }, 4000);
+            }
+        }
+    }
+    // },
+    // watch: {
+    //     userHealthWidth: function() {
+    //         if(this.userHealthWidth > 100) {
+    //            setTimeout(() => {
+    //                this.winnerMsg = `${this.name} is the winner`;
+    //            }, 4000);
+    //         }   
+    //     }
+    // }
+})
+
+</script>
