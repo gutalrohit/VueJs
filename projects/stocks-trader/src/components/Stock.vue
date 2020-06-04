@@ -5,16 +5,16 @@
       <!-- Grand children elements naming - BEM element naming only depends on Block
       Hence, grandchildren should use only bloack name, to help to point to the bloack and heirarchy of DOM is not required in naming` -->
       <h2 class="stock__primary">{{stockName}}</h2>
-      <p>{{stockPrice}}</p>
+      <p>${{stockPrice}}</p>
     </div>
     <div class="stock__secondary">
       <div class="stock__quantity stock__content">
-        <p>Total Stocks: {{totalStocks}}</p>
-        <p>Total Value: {{totalValue}}</p>
+        <p v-if="totalStocks">Total Stocks: {{totalStocks}}</p>
+        <p v-if="totalValue">Total Value: {{totalValue}}</p>
       </div>
       <div class="stock__action stock__content">
-        <input id="stockActionQuantity" placeholder="Quantity" type="text" :value="stockActionQuantity">
-        <button class="btn btn-info" @click="stockActionFunction">{{stockAction}}</button>
+        <input class="text-align-center" id="stockActionQuantity" placeholder="Quantity" type="text" v-model="stockQuantity">
+        <button class="btn btn-info" @click="stockTransaction({stockid, stockQuantity})">{{stockAction}}</button>
       </div>
     </div>   
   </div>
@@ -22,17 +22,18 @@
 
 <script>
 export default {
-  props: ['stockName', 'stockPrice', 'totalStocks', 'totalValue', 'stockAction', 'stockActionQuantity', 'stockActionFunction']
-  // data: function() {
-  //   return {
-  //     stockName: '',
-  //     stockPrice: '',
-  //     totalStocks: '',
-  //     totalValue: '',
-  //     stockAction: '',
-  //     stockActionQuantity: ''
-  //   }
-  // }
+  props: ['stockid', 'stockName', 'stockPrice', 'totalStocks', 'totalValue', 'stockAction', 'stockActionQuantity'],
+  data() {
+    return {
+      stockQuantity: this.stockActionQuantity
+    }
+  },
+  methods: {
+    stockTransaction(stockTransactionData) {
+      this.stockQuantity = ''
+      this.$emit('stockTransactionAction', stockTransactionData)
+    }
+  }
 }
 </script>
 
@@ -60,5 +61,8 @@ export default {
   }
   .stock__secondary>* {
     margin-bottom: 8px;
+  }
+  .text-align-center {
+    text-align: center;
   }
 </style>

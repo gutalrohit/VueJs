@@ -3,12 +3,13 @@
     <h1>You can buy stocks from here!</h1>
     <div class="stocks-shop__stocks">
       <stock v-for="(stock, index) in stockData"
-            :key="index" 
+            :key="index"
+            :stockid="stock.stockid"
              :stockName="stock.stockName" 
              :stockPrice="stock.stockPrice"
              :stockAction="stock.stockAction"
              :stockActionQuantity="stock.stockActionQuantity"
-             :stockActionFunction="DuductFunds"></stock>
+             @stockTransactionAction="buyStocks"></stock>
     </div>
   </section>
 </template>
@@ -20,13 +21,23 @@ export default {
   },
   data: function() {
     return {
-      stockData: [{stockName: 'Google', stockPrice: '$350', stockAction: 'Buy', stockActionQuantity: ''}, {stockName: 'Amazon', stockPrice: '$200', stockAction: 'Buy', stockActionQuantity: ''}
-      ,{stockName: 'Apple', stockPrice: '$300', stockAction: 'Buy', stockActionQuantity: ''}, {stockName: 'Microsoft', stockPrice: '$150', stockAction: 'Buy', stockActionQuantity: ''}]
+      stockData: [{stockid: 1, stockName: 'Google', stockPrice: '350', stockAction: 'Buy', stockActionQuantity: ''},
+      {stockid: 2, stockName: 'Amazon', stockPrice: '200', stockAction: 'Buy', stockActionQuantity: ''},
+      {stockid: 3, stockName: 'Apple', stockPrice: '300', stockAction: 'Buy', stockActionQuantity: ''},
+      {stockid: 4, stockName: 'Microsoft', stockPrice: '150', stockAction: 'Buy', stockActionQuantity: ''}]
     }
   },
   methods: {
-    DuductFunds() {
-      this.$store.commit('updateFunds', -100)
+    buyStocks($event) {
+      let stockTotalPrice = 0;
+      this.stockData.forEach(element => {
+        if (element.stockid === $event.stockid) {
+          console.log($event.stockQuantity)
+          stockTotalPrice = parseInt(element.stockPrice) * parseInt($event.stockQuantity);
+        }    
+      });
+      console.log(stockTotalPrice)
+      this.$store.commit('updateFunds', -stockTotalPrice)
     }
   }
 }
