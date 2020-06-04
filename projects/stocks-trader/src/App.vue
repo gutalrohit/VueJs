@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=p-4>
+  <div id="app">
     <header-view></header-view>
     <transition name="slide" mode="out-in">
       <router-view></router-view>

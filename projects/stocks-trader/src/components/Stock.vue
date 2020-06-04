@@ -14,7 +14,7 @@
       </div>
       <div class="stock__action stock__content">
         <input id="stockActionQuantity" placeholder="Quantity" type="text" :value="stockActionQuantity">
-        <button class="btn btn-info">{{stockAction}}</button>
+        <button class="btn btn-info" @click="stockActionFunction">{{stockAction}}</button>
       </div>
     </div>   
   </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['stockName', 'stockPrice', 'totalStocks', 'totalValue', 'stockAction', 'stockActionQuantity']
+  props: ['stockName', 'stockPrice', 'totalStocks', 'totalValue', 'stockAction', 'stockActionQuantity', 'stockActionFunction']
   // data: function() {
   //   return {
   //     stockName: '',
@@ -41,7 +41,7 @@ export default {
     width: 400px;
     border: 1px lightskyblue solid;
     border-radius: 3px;
-    margin: 8px;
+    margin: 16px;
   }
   .stock__head {
     padding: 8px;
