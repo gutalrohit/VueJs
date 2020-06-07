@@ -15,6 +15,8 @@
 </template>
 <script>
 import Stock from './Stock.vue';
+import axios from 'axios'
+
 export default {
   components: {
     Stock
@@ -32,11 +34,14 @@ export default {
       let stockTotalPrice = 0;
       this.stockData.forEach(element => {
         if (element.stockid === $event.stockid) {
-          console.log($event.stockQuantity)
+          element.stockActionQuantity = $event.stockQuantity;
+          axios.post('/stocksPurchased.json', element)
+          .then(response => {
+            console.log(response)
+          });
           stockTotalPrice = parseInt(element.stockPrice) * parseInt($event.stockQuantity);
         }    
       });
-      console.log(stockTotalPrice)
       this.$store.commit('updateFunds', -stockTotalPrice)
     }
   }

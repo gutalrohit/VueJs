@@ -24,6 +24,7 @@
 
 <script>
 import Stock from './Stock.vue'
+import axios from './../axios/stocks-axios'
 export default {
   components: {
     Stock
@@ -49,6 +50,15 @@ export default {
     updateLoggedInUser() {
       this.$store.dispatch('updateLoogedInUserAction', this.loggedInUser)
     }
+  },
+  created() {
+    axios.get('/stocksPurchased.json')
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 }
 </script>
