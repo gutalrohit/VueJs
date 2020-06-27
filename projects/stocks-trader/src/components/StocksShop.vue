@@ -14,7 +14,7 @@
   </section>
 </template>
 <script>
-import Stock from './Stock.vue';
+import Stock from './StockTraderStock.vue';
 import axios from 'axios'
 
 export default {
@@ -23,10 +23,7 @@ export default {
   },
   data: function() {
     return {
-      stockData: [{stockid: 1, stockName: 'Google', stockPrice: '350', stockAction: 'Buy', stockActionQuantity: ''},
-      {stockid: 2, stockName: 'Amazon', stockPrice: '200', stockAction: 'Buy', stockActionQuantity: ''},
-      {stockid: 3, stockName: 'Apple', stockPrice: '300', stockAction: 'Buy', stockActionQuantity: ''},
-      {stockid: 4, stockName: 'Microsoft', stockPrice: '150', stockAction: 'Buy', stockActionQuantity: ''}]
+      stockData: []
     }
   },
   methods: {
@@ -43,7 +40,19 @@ export default {
         }    
       });
       this.$store.commit('updateFunds', -stockTotalPrice)
+    },
+    getstocksList() {
+      axios.get('/stocks-list.json')
+        .then(response => {
+          for (let key in response.data) {
+            this.stockData = response.data[key];
+            this.stockData.key = key;
+          }
+        }) 
     }
+  },
+  created() {
+    this.getstocksList();
   }
 }
 </script>

@@ -13,11 +13,11 @@ Vue.use(VueRouter)
 
 //Setting default global configurations usinf axios
 axios.defaults.baseURL = 'https://stocks-trader-71059.firebaseio.com'
-axios.defaults.headers.get['Auth'] = 'Rohit-application'
+//axios.defaults.headers.get['Auth'] = 'Rohit-application'
 
 // setting interceptors - on incoming or outgoing calls
 axios.interceptors.request.use((config) => {
-  config.headers.get['Name'] = 'Stocks-trader'
+  //config.headers.get['Name'] = 'Stocks-trader'
   return config
 })
 

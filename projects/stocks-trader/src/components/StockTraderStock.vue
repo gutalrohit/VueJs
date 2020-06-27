@@ -10,7 +10,7 @@
     <div class="stock__secondary">
       <div class="stock__quantity stock__content">
         <p v-if="totalStocks">Total Stocks: {{totalStocks}}</p>
-        <p v-if="totalValue">Total Value: {{totalValue}}</p>
+        <p v-if="totalValue">Total Value: ${{totalValue}}</p>
       </div>
       <div class="stock__action stock__content">
         <input class="text-align-center" id="stockActionQuantity" placeholder="Quantity" type="text" v-model="stockQuantity">

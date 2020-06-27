@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import HeaderView from './components/Header.vue'
+import HeaderView from './components/StockTraderHeader.vue'
 
 export default {
   name: 'App',

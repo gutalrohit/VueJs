@@ -1,4 +1,4 @@
-import Home from '../components/Home.vue'
+import Home from '../components/StockTraderHome.vue'
 import StocksPortfolio from '../components/StocksPortfolio.vue'
 import StocksShop from '../components/StocksShop.vue'
 

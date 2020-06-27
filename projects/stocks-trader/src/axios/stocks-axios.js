@@ -5,6 +5,6 @@ const stockAxios = axios.create({
 })
 
 //Addd properties after instance is created
-stockAxios.defaults.headers.common['axiosInstance'] = 'Custom Axios Instance'
+//stockAxios.defaults.headers.common['axiosInstance'] = 'Custom Axios Instance'
 
 export default stockAxios;

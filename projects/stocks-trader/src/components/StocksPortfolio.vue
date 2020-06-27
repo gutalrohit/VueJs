@@ -23,16 +23,16 @@
 </template>
 
 <script>
-import Stock from './Stock.vue'
-import axios from './../axios/stocks-axios'
+import Stock from './StockTraderStock.vue'
+import axios from 'axios'
 export default {
   components: {
     Stock
   },
   data: function() {
     return {
-      stockPortfolio: [{stockid: 1, stockName: 'Apple', stockPrice: '300',totalStocks: '300', totalValue: '$90000', stockAction: 'Sell', stockActionQuantity: '', loggedInUser: ''}, 
-        {stockid: 2, stockName: 'Facebook',stockPrice: '225', totalStocks: '100', totalValue: '$22500', stockAction: 'Sell', stockActionQuantity: '', loggedInUser: ''}]
+      stockPortfolio: [],
+      loggedInUser: 'Rohit'
     }
   },
   methods: {
@@ -49,12 +49,23 @@ export default {
     },
     updateLoggedInUser() {
       this.$store.dispatch('updateLoogedInUserAction', this.loggedInUser)
+    },
+    updateStocks(purchasedStocksList) {
+      console.log(purchasedStocksList)
+      this.stockPortfolio = Object.values(purchasedStocksList);
+      this.stockPortfolio = Object.values(purchasedStocksList).map((value) => {
+        value.stockAction = 'Sell';
+        value.totalStocks = value.stockActionQuantity;
+        value.totalValue = +value.totalStocks * +value.stockPrice;
+        value.stockActionQuantity = null;
+        return value;
+      })
     }
   },
   created() {
     axios.get('/stocksPurchased.json')
       .then(response => {
-        console.log(response);
+        this.updateStocks(response.data);
       })
       .catch(error => {
         console.log(error);

@@ -1,0 +1,30 @@
+[
+  {
+     "stockid":1,
+     "stockName":"Google",
+     "stockPrice":"350",
+     "stockAction":"Buy",
+     "stockActionQuantity":""
+  },
+  {
+     "stockid":2,
+     "stockName":"Amazon",
+     "stockPrice":"200",
+     "stockAction":"Buy",
+     "stockActionQuantity":""
+  },
+  {
+     "stockid":3,
+     "stockName":"Apple",
+     "stockPrice":"300",
+     "stockAction":"Buy",
+     "stockActionQuantity":""
+  },
+  {
+     "stockid":4,
+     "stockName":"Microsoft",
+     "stockPrice":"150",
+     "stockAction":"Buy",
+     "stockActionQuantity":""
+  }
+]
